@@ -5,8 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="执行上下文, GGBond&#39;s Blog">
-    <meta name="description" content=":::info大部分翻译自：https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0。:::
-">
+    <meta name="description" content="JavaScript的执行上下文相关知识">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -311,7 +310,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>:::info<br>大部分翻译自：<a target="_blank" rel="noopener" href="https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0">https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0</a>。<br>:::</p>
+                <p>大部分翻译自：<a target="_blank" rel="noopener" href="https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0">https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0</a></p>
 <h1 id="什么是执行上下文"><a href="#什么是执行上下文" class="headerlink" title="什么是执行上下文"></a>什么是执行上下文</h1><p>执行上下文：抽象概念，评估和执行js代码的环境。当前执行环境的变量、函数声明、作用链域、this等信息</p>
 <h1 id="执行上下文分类"><a href="#执行上下文分类" class="headerlink" title="执行上下文分类"></a>执行上下文分类</h1><ol>
 <li><strong>全局执行上下文</strong>   这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 <code>this</code> 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。</li>
@@ -339,7 +338,7 @@
 <span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Inside Global Execution Context'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/25703225/1690885353715-3aefaf43-8821-4528-aba2-3969f7b3c0e8.jpeg"></p>
+<p><img src="/2023/08/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E6%89%A7%E8%A1%8C%E6%A0%88.jpg"></p>
 <h1 id="执行上下文的生命周期"><a href="#执行上下文的生命周期" class="headerlink" title="执行上下文的生命周期"></a>执行上下文的生命周期</h1><h2 id="创建阶段"><a href="#创建阶段" class="headerlink" title="创建阶段"></a>创建阶段</h2><p>执行上下文在创建阶段做两件事情：<br>创建词法环境组件（LexicalEnvironment）<br>创建变量环境组件（VariableEnvironment）</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ExecutionContext <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
   LexicalEnvironment <span class="token operator">=</span> <span class="token operator">&lt;</span>ref<span class="token punctuation">.</span> to LexicalEnvironment <span class="token keyword">in</span> memory<span class="token operator">></span><span class="token punctuation">,</span>
@@ -364,8 +363,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
   <span class="token literal-property property">foo</span><span class="token operator">:</span> <span class="token operator">&lt;</span>ref<span class="token punctuation">.</span> to foo <span class="token keyword">function</span><span class="token operator">></span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="词法环境的组成部分：环境记录器、外部环境的引用、this绑定"><a href="#词法环境的组成部分：环境记录器、外部环境的引用、this绑定" class="headerlink" title="词法环境的组成部分：环境记录器、外部环境的引用、this绑定"></a><strong>词法环境的组成部分</strong>：环境记录器、外部环境的引用、this绑定</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/25703225/1690886636463-7a61aee0-74ef-4a37-97e6-cff844c2280f.jpeg"></p>
-<h4 id="环境记录器：环境记录是词法环境中存储变量和函数声明的地方"><a href="#环境记录器：环境记录是词法环境中存储变量和函数声明的地方" class="headerlink" title="环境记录器：环境记录是词法环境中存储变量和函数声明的地方"></a><strong>环境记录器</strong>：环境记录是词法环境中存储变量和函数声明的地方</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/jpeg/25703225/1690886503387-88a43482-8669-4d10-bf65-ea66fe295e56.jpeg"><br>:::info<br>对于函数代码而言，环境记录还包含一个参数对象，该对象包含传递给函数的索引和参数之间的映射，以及传递给函数的参数长度（个数)。例如，下面函数的参数对象如下所示：<br>:::</p>
+<h3 id="词法环境的组成部分：环境记录器、外部环境的引用、this绑定"><a href="#词法环境的组成部分：环境记录器、外部环境的引用、this绑定" class="headerlink" title="词法环境的组成部分：环境记录器、外部环境的引用、this绑定"></a><strong>词法环境的组成部分</strong>：环境记录器、外部环境的引用、this绑定</h3><p><img src="/2023/08/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86.jpg"></p>
+<h4 id="环境记录器：环境记录是词法环境中存储变量和函数声明的地方"><a href="#环境记录器：环境记录是词法环境中存储变量和函数声明的地方" class="headerlink" title="环境记录器：环境记录是词法环境中存储变量和函数声明的地方"></a><strong>环境记录器</strong>：环境记录是词法环境中存储变量和函数声明的地方</h4><p><img src="/2023/08/02/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E5%99%A8.jpg"><br>:::info<br>对于函数代码而言，环境记录还包含一个参数对象，该对象包含传递给函数的索引和参数之间的映射，以及传递给函数的参数长度（个数)。例如，下面函数的参数对象如下所示：<br>:::</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">var</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span>
@@ -393,7 +392,7 @@ person<span class="token punctuation">.</span><span class="token function">calcA
 <span class="token function">calculateAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token comment">// 'this' refers to the global window object, because no object reference was given</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/25703225/1690887010354-a5e405dd-796f-42ce-b27d-cf86754c78e9.png#averageHue=%23212326&clientId=u47a98880-1da6-4&from=ui&id=ub16ce4a0&originHeight=421&originWidth=1214&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40684&status=done&style=none&taskId=u5ad822e3-b487-4faf-8480-79cb6f0bbbe&title=" alt="微信截图_20230801184957.png"><br>抽象地说，词法环境在伪代码中是这样的：</p>
+<p>抽象地说，词法环境在伪代码中是这样的：</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">GlobalExectionContext <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
   <span class="token literal-property property">LexicalEnvironment</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
     <span class="token literal-property property">EnvironmentRecord</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
@@ -518,7 +517,8 @@ c <span class="token operator">=</span> <span class="token function">multiply</s
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>函数完成后，返回值将存储在 c 中。之后，全局代码完成，程序结束。<br>:::info<br>注–你可能已经注意到，在创建阶段，let 和 const 定义的变量没有任何相关值，但 var 定义的变量被设置为未定义。<br>这是因为在创建阶段，代码会扫描变量和函数声明，而函数声明会完整地存储在环境中，变量最初会被设置为未定义（var 的情况）或保持未初始化（let 和 const 的情况）。<br>这就是为什么你可以在声明 var 定义变量之前访问它们（尽管它们未定义），但在声明 let 和 const 变量之前访问它们时会出现引用错误的原因。<br>这就是我们所说的挂起。<br>注意：在执行阶段，如果 JavaScript 引擎无法在源代码中声明 let 变量的实际位置找到它的值，就会将其赋值为 undefined。<br>:::</p>
+<p>函数完成后，返回值将存储在 c 中。之后，全局代码完成，程序结束。</p>
+<p>注–你可能已经注意到，在创建阶段，let 和 const 定义的变量没有任何相关值，但 var 定义的变量被设置为未定义。<br>这是因为在创建阶段，代码会扫描变量和函数声明，而函数声明会完整地存储在环境中，变量最初会被设置为未定义（var 的情况）或保持未初始化（let 和 const 的情况）。<br>这就是为什么你可以在声明 var 定义变量之前访问它们（尽管它们未定义），但在声明 let 和 const 变量之前访问它们时会出现引用错误的原因。<br>这就是我们所说的挂起。<br>注意：在执行阶段，如果 JavaScript 引擎无法在源代码中声明 let 变量的实际位置找到它的值，就会将其赋值为 undefined。</p>
 <h1 id="执行上下文的特点"><a href="#执行上下文的特点" class="headerlink" title="执行上下文的特点"></a>执行上下文的特点</h1><ol>
 <li>单线程</li>
 <li>同步执行</li>
@@ -653,7 +653,7 @@ c <span class="token operator">=</span> <span class="token function">multiply</s
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            JavaScript的执行上下文相关知识
                         
                     </div>
                     <div class="publish-info">
