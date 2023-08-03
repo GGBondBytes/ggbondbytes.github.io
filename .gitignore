@@ -31,3 +31,4 @@ screenshot
 # product dir
 .deploy_git
 public
+**/ggbondbytes.github.io
